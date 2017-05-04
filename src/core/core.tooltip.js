@@ -628,6 +628,7 @@ module.exports = function(Chart) {
 		},
 		drawTitle: function(pt, vm, ctx, opacity) {
 			var title = vm.title;
+			var AgeState = window.AgeState;
 
 			if (title.length) {
 				ctx.textAlign = vm._titleAlign;
@@ -641,6 +642,13 @@ module.exports = function(Chart) {
 
 				var i, len;
 				for (i = 0, len = title.length; i < len; ++i) {
+					var txt = title[i];
+					/*	Custom Edi for over year calculators*/
+					if (AgeState && AgeState.available()) {
+						txt = AgeState.toString(txt);
+					}
+					/*	End custom*/
+
 					ctx.fillText(title[i], pt.x, pt.y);
 					pt.y += titleFontSize + titleSpacing; // Line Height and spacing
 
@@ -795,6 +803,12 @@ module.exports = function(Chart) {
 
 			if (this._options.enabled && hasTooltipContent) {
 				// Draw Background
+				var AgeState = window.AgeState;
+
+				if (AgeState !== undefined && AgeState.available()) {
+					pt.x = AgeState.getX(pt.x);
+				}
+
 				this.drawBackground(pt, vm, ctx, tooltipSize, opacity);
 
 				// Draw Title, Body, and Footer
