@@ -649,7 +649,7 @@ module.exports = function(Chart) {
 					}
 					/*	End custom*/
 
-					ctx.fillText(title[i], pt.x, pt.y);
+					ctx.fillText(txt, pt.x, pt.y);
 					pt.y += titleFontSize + titleSpacing; // Line Height and spacing
 
 					if (i + 1 === title.length) {
